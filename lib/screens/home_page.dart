@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:testler/models/person.dart';
-import 'package:testler/screen/delete_page.dart';
-import 'package:testler/screen/insert_page.dart';
-import 'package:testler/screen/query_page.dart';
-import 'package:testler/screen/update_page.dart';
-import 'package:testler/screen/view_page.dart';
+import 'package:testler/screens/delete_page.dart';
+import 'package:testler/screens/insert_page.dart';
+import 'package:testler/screens/query_page.dart';
+import 'package:testler/screens/update_page.dart';
+import 'package:testler/screens/view_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

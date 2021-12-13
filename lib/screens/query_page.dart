@@ -34,7 +34,7 @@ class _QueryPageState extends State<QueryPage> {
                 },
               ),
             ),
-            Container(
+            SizedBox(
               height: 300,
               child: FutureBuilder<List<Person>>(
                 future: DBHelper.instance.search(k),
