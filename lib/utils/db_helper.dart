@@ -45,6 +45,7 @@ class DBHelper {
     ''');
   }
 
+  //View
   Future<List<Person>> getPerson() async {
     var db = await instance.database;
     var person = await db.query('Person');
@@ -53,6 +54,7 @@ class DBHelper {
     return personList;
   }
 
+  
   Future<void> add(Person p) async {
     var db = await instance.database;
     await db.insert('Person', p.toMap());
