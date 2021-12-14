@@ -54,7 +54,6 @@ class DBHelper {
     return personList;
   }
 
-  
   Future<void> add(Person p) async {
     var db = await instance.database;
     await db.insert('Person', p.toMap());
@@ -73,6 +72,10 @@ class DBHelper {
 
   Future<List<Person>> search(String k) async {
     final db = await instance.database;
+    //%k% şekilleri:
+    // k% yapılırsa başı yazdığımız kelime ile başlayanlar çıkar
+    // %k yapılırsa sonu yazdığımız kelime ile bitenle çıkar
+    // %k% yapılırsa tüm kelimlerde arama yapar.
     List<Map<String, dynamic>> allRows =
         await db.query('Person', where: 'ad LIKE ?', whereArgs: ['%$k%']);
     return allRows.isNotEmpty
