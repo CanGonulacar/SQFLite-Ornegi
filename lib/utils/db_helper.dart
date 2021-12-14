@@ -13,8 +13,24 @@ class DBHelper {
   Future<Database> get database async => _database ?? await _initDb();
 
   Future<Database> _initDb() async {
-    var path = await openDatabase(join(await getDatabasesPath(), 'person.db'),
-        version: 1, onCreate: _onCreate);
+    //version çağırılırsa [onCreate], [onUpgrade] ve [onDowngrade] properties çalışır.
+    //openDatabase çağırılmadan önce veritabanı mevcut değilse onCreate çalışır.
+    //[onUpgrade] aşağıdaki koşullardan biri karşılanırsa çağrılır:
+    /*onUpgrade onCreate gibi Database ve version için int değeri alır.
+    ekstra olarak bir tane daha int değer alır. Yeni bir database oluşturmaya yarar.
+    Peki neden ihtiyaç duyarız. Olurda farklı bir Database'e geçecekseniz
+    bu property ile farklı şemayı işlemek için gerekli geçiş prosedürlerini gerçekleştirebilirsiniz veya
+    2 farklı database tutmak ta isteyebilirsiniz.*/
+    //[ReadOnly] (varsayılan olarak false) true olduğunda, diğer tüm parametreler yok sayılır ve veritabanı olduğu gibi açılır
+    //[onOpen], çağrılacak son isteğe bağlı geri aramadır(function). Veritabanı sürümü ayarlandıktan sonra ve [openDatabase] dönmeden önce çağrılır.
+    //[singleInstance] true olduğunda (varsayılan), belirli bir yol için tek bir veritabanı örneği döndürülür. Aynı yolla [openDatabase]'e yapılan sonraki çağrılar aynı örneği döndürür ve bu çağrı için geri çağrılar gibi tüm diğer parametreleri atar.
+    //[onDownGrade] yeni versiyonlu dan eski versiyona etkileşime girecekse ortaya çıkar. Bu senaryodan kaçılması önerilir.
+
+    var path = await openDatabase(
+      join(await getDatabasesPath(), 'person.db'),
+      version: 1,
+      onCreate: _onCreate,
+    );
     return path;
   }
 
