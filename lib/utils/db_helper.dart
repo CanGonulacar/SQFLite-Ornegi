@@ -53,7 +53,7 @@ class DBHelper {
         person.isNotEmpty ? person.map((e) => Person.fromMap(e)).toList() : [];
     return personList;
   }
-
+  //insert
   Future<void> add(Person p) async {
     var db = await instance.database;
     await db.insert('Person', p.toMap());
